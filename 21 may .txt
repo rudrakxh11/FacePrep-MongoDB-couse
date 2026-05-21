@@ -1,0 +1,93 @@
+Create table Category(
+ cid int not null primary key,
+ cname varchar(225) not null
+ );
+ insert into Category(cid,cname) Values(101,'electronics'),
+ (102,'home appliances');
+ 
+ select * from category;
+ 
+ Create table Products(
+ pid int primary key,
+ pname varchar(225) not null,
+ cid int,
+ FOREIGN KEY (cid) REFERENCES category(cid) on delete cascade);
+ 
+  Create table Products(
+ pid int primary key,
+ pname varchar(225) not null,
+ cid int,
+ FOREIGN KEY (cid) REFERENCES category(cid) on update cascade);
+ 
+ desc products;
+ insert into Products(pid,pname,cid) Values(1,'a',101),
+ (2,'b',102),
+ (3,'c',101),
+ (4,'d',102),
+ (5,'e',101);
+ delete from category where cid=101;
+ insert into Products(pid,pname,cid) Values(6,'a',103);
+ drop table products,category;
+ 
+ /* WHERE .............*/
+ /* Order by...acen....desc..*/
+ select * from worker;
+ 
+ select first_name ,department, salary from worker
+ where department='admin';
+  select first_name ,department, salary from worker
+ where department='admin'order by salary asc;
+   select first_name ,department, salary from worker
+ where department='admin'order by salary desc;
+ 
+ /* Group by */
+ select count(worker_id) from worker;
+ 
+select department,count(department) from worker
+ group by department;
+ 
+select department,count(department) from worker
+ group by department order by DEPARTMENT asc;
+ 
+ select department ,sum(salary) from worker
+ group by department;
+ 
+ /* HAVING */
+ select department,count(department) from worker
+ group by department HAVING count(department) >=3 order by DEPARTMENT asc;
+ 
+  select department ,sum(salary) from worker
+ group by department having sum(salary)<300000;
+ 
+ /* LIMIT AND OFFSET  -----------*/
+ select * from worker limit 5;
+  select * from worker limit 4 offset 3;
+  
+  /* sub query */
+  create table topper(id int) ;
+  insert into topper values (2),(5);
+  
+  select worker_id,first_name, department from worker
+  where worker_id in (select id from topper);
+  
+  /* First two departments with highest salary */
+SELECT department, SUM(salary)
+FROM worker
+GROUP BY department
+ORDER BY SUM(salary) deSC
+LIMIT 2;
+
+  /* in admin department who is getting 2nd largest salary*/
+SELECT first_name,department,(salary)
+FROM worker
+where department='admin'
+ORDER BY (salary) deSC
+LIMIT 1 offset 1;
+
+/* in each department who is getting max salary.*/
+select first_name,max(salary),department from worker 
+group by department ;
+
+select first_name,salary,department from worker 
+group by department ; /*AS NO.OF department =3 , we get only 
+3 rows which are first in * table(one from each department) */
