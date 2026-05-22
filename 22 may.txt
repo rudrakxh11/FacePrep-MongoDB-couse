@@ -1,0 +1,32 @@
+CREATE TABLE HOD
+(
+    Hid INT PRIMARY KEY,
+    hname VARCHAR(20) NOT NULL UNIQUE
+);
+
+INSERT INTO HOD VALUES
+(101,'Arun'),
+(102,'Jayanth'),
+(104,'Karthik'),
+(105,'Murali');
+
+SELECT * FROM HOD;
+
+SELECT * 
+FROM departments NATURAL JOIN hod;
+
+SELECT * 
+FROM departments 
+LEFT OUTER JOIN hod 
+ON (departments.did = hod.hid) 
+ORDER BY did ASC;
+
+SELECT * 
+FROM departments 
+INNER JOIN hod 
+ON departments.hid = hod.hid;
+
+SELECT * 
+FROM departments 
+CROSS JOIN hod 
+ORDER BY did;
