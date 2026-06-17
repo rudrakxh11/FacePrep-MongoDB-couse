@@ -1,0 +1,119 @@
+Final TEST (17 JUNE 2026)
+
+QUESTIONS 
+Q1. Insert one employee document.
+Q2. Insert multiple employee documents.
+Q3. Find one employee from IT department.
+Q4. Display all employees.
+Q5. Display only name and salary.
+Q6. Find employees with salary equal to 50000.
+Q7. Find employees with salary less than 60000.
+Q8. Find employees with salary greater than or equal to 60000.
+Q9. Find employees whose age is not equal to 30.
+Q10. Find employees from Chennai or Mumbai.
+Q11. Find employees not from Chennai.
+Q12. Find IT employees with salary > 50000.
+Q13. Find employees from Chennai OR Bangalore.
+Q14. Find employees NOT earning above 60000.
+Q15. Find employees neither in IT nor HR.
+Q16. Find documents containing experience field.
+Q17. Find documents where salary is Integer.
+Q18. Find employees having MongoDB skill.
+Q19. Find employees having both MongoDB and AWS.
+Q20. Find employees with exactly 3 skills.
+Q21. Find employees having Java skill using elemMatch.
+Q22. Display employees sorted by salary descending.
+Q23. Display top 3 highest paid employees.
+Q24. Increase salary of employee 101 by 5000.
+Q25. Increase salary of all IT employees by 10%.
+
+SOLUTIONS
+
+1)
+ db.employees.insertOne({
+  empId: 106,
+  name: "Amit",
+  age: 29,
+  department: "Marketing",
+  salary: 48000,
+  city: "Pune",
+  experience: 4,
+  skills: ["SEO", "Analytics"],
+  active: true
+})
+
+2)
+  db.employees.insertMany([
+  { empId: 101, name: "Arun", age: 25, department: "IT", salary: 45000, city: "Chennai", experience: 3, skills: ["Java","MongoDB","Spring"], active: true },
+  { empId: 102, name: "Priya", age: 28, department: "HR", salary: 55000, city: "Bangalore", experience: 5, skills: ["Recruitment","Training"], active: true }
+])
+
+3)
+ db.employees.findOne({ department: "IT" })
+
+
+4) 
+ db.employees.find()
+
+5)
+ db.employees.find({}, { name: 1, salary: 1, _id: 0 })
+
+6)
+ db.employees.find({ salary: 50000 })
+
+7)
+ db.employees.find({ salary: { $lt: 60000 } })
+
+8)
+ db.employees.find({ salary: { $gte: 60000 } })
+
+9)
+  db.employees.find({ age: { $ne: 30 } })
+
+10)
+ db.employees.find({ city: { $in: ["Chennai", "Mumbai"] } })
+
+11)
+ db.employees.find({ city: { $ne: "Chennai" } })
+
+12)
+ db.employees.find({ department: "IT", salary: { $gt: 50000 } })
+
+13)
+ db.employees.find({ city: { $in: ["Chennai", "Bangalore"] } })
+
+14)
+ db.employees.find({ salary: { $not: { $gt: 60000 } } })
+
+15)
+ db.employees.find({ department: { $nin: ["IT", "HR"] } })
+
+16)
+ db.employees.find({ experience: { $exists: true } })
+
+17)
+ db.employees.find({ salary: { $type: "int" } })
+
+18)
+ db.employees.find({ skills: "MongoDB" })
+
+19)
+ db.employees.find({ skills: { $all: ["MongoDB", "AWS"] } })
+
+20)
+ db.employees.find({ skills: { $size: 3 } })
+
+21)
+ db.employees.find({ skills: { $elemMatch: { $eq: "Java" } } })
+
+22)
+ db.employees.find().sort({ salary: -1 })
+
+23)
+ db.employees.find().sort({ salary: -1 }).limit(3)
+
+24)
+ db.employees.updateOne({ empId: 101 }, { $inc: { salary: 5000 } })
+
+25)
+ db.employees.updateMany({ department: "IT" }, { $mul: { salary: 1.10 } })
