@@ -258,7 +258,7 @@ Vote → Feedback
 ### Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/rudrakxh11/FacePrep-MongoDB-couse.git
 cd productfeedback
 ```
 
